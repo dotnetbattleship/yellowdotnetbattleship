@@ -11,6 +11,7 @@ In the root folder of the application there is a Battleship.sln which can be use
 dotnet build 
 ```
 
+
 # Run the application
 
 ## Running locally
