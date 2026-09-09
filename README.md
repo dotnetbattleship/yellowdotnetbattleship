@@ -83,5 +83,3 @@ This application is collecting telemetry data with Microsoft Application Insight
 For more details see https://docs.microsoft.com/en-us/azure/azure-monitor/app/console.
 
 The telemetry data can be visualized at https://telemetrydashboard.azurewebsites.net/
-
-Stu Test
