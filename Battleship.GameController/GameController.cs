@@ -29,7 +29,7 @@ namespace Battleship.GameController
         ///     or
         ///     shot
         /// </exception>
-        public static bool CheckIsHit(IEnumerable<Ship> ships, Position shot)
+        public static (bool, bool) CheckIsHit(IEnumerable<Ship> ships, Position shot)
         {
             if (ships == null)
             {
@@ -43,16 +43,14 @@ namespace Battleship.GameController
 
             foreach (var ship in ships)
             {
-                foreach (var position in ship.Positions)
+                var (hit, destroyed) = ship.IsHit(shot.ToString());
+                if (hit)
                 {
-                    if (position.Equals(shot))
-                    {
-                        return true;
-                    }
+                    return (true, destroyed);
                 }
             }
 
-            return false;
+            return (false, false);
         }
 
         /// <summary>
@@ -65,11 +63,11 @@ namespace Battleship.GameController
         {
             return new List<Ship>()
                        {
-                           new Ship() { Name = "Aircraft Carrier", Size = 5, Color = ConsoleColor.Blue }, 
-                           new Ship() { Name = "Battleship", Size = 4, Color = ConsoleColor.Red }, 
-                           new Ship() { Name = "Submarine", Size = 3, Color = ConsoleColor.Gray }, 
-                           new Ship() { Name = "Destroyer", Size = 3, Color = ConsoleColor.Yellow }, 
-                           new Ship() { Name = "Patrol Boat", Size = 2, Color = ConsoleColor.Green }
+                           new Ship("Aircraft Carrier", 5) { Color = ConsoleColor.Blue }, 
+                           new Ship("Battleship", 4) { Color = ConsoleColor.Red }, 
+                           new Ship("Submarine", 3) { Color = ConsoleColor.Gray }, 
+                           new Ship("Destroyer", 3) { Color = ConsoleColor.Yellow }, 
+                           new Ship("Patrol Boat", 2) { Color = ConsoleColor.Green }
                        };
         }
 

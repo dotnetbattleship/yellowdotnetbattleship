@@ -79,7 +79,7 @@ namespace Battleship.Ascii
                 Console.WriteLine("Player, it's your turn");
                 Console.WriteLine("Enter coordinates for your shot :");
                 var position = ParsePosition(Console.ReadLine());                
-                var isHit = GameController.CheckIsHit(enemyFleet, position);
+                var (isHit, destroyed) = GameController.CheckIsHit(enemyFleet, position);
                 telemetryClient.TrackEvent("Player_ShootPosition", new Dictionary<string, string>() { { "Position", position.ToString() }, { "IsHit", isHit.ToString() } });
                 if (isHit)
                 {
@@ -96,6 +96,10 @@ namespace Battleship.Ascii
                     Console.WriteLine(@"                   \  \   /  /");
 
                     Console.WriteLine("Yeah ! Nice hit !");
+                    if (destroyed)
+                    {
+                        Console.WriteLine("You have destroyed an enemy ship !");
+                    }
                 }
                 else
                 {
@@ -107,7 +111,7 @@ namespace Battleship.Ascii
                 Console.ForegroundColor = ConsoleColor.White;
 
                 position = GetRandomPosition();
-                isHit = GameController.CheckIsHit(myFleet, position);
+                (isHit, destroyed) = GameController.CheckIsHit(myFleet, position);
                 telemetryClient.TrackEvent("Computer_ShootPosition", new Dictionary<string, string>() { { "Position", position.ToString() }, { "IsHit", isHit.ToString() } });
                 Console.WriteLine();
 
@@ -137,6 +141,11 @@ namespace Battleship.Ascii
                     Console.WriteLine(@"                   \  \   /  /");
 
                 }
+                    if (destroyed)
+                    {
+                        Console.WriteLine("You have destroyed an enemy ship !");
+                    }
+
                 Console.ForegroundColor = ConsoleColor.White;
             }
             while (true);

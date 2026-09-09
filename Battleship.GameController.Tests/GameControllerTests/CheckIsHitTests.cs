@@ -32,8 +32,9 @@
                 counter++;
             }
 
-            var result = GameController.CheckIsHit(ships, new Position(Letters.A, 1));
+            var (result, destroyed) = GameController.CheckIsHit(ships, new Position(Letters.A, 1));
             Assert.IsTrue(result);
+            Assert.IsFalse(destroyed);
         }
 
         /// <summary>
@@ -56,8 +57,9 @@
                 counter++;
             }
 
-            var result = GameController.CheckIsHit(ships, new Position(Letters.H, 1));
+            var (result, destroyed) = GameController.CheckIsHit(ships, new Position(Letters.H, 1));
             Assert.IsFalse(result);
+            Assert.IsFalse(destroyed);
         }
 
         /// <summary>

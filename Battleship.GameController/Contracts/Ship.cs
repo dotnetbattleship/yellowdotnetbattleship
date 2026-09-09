@@ -12,15 +12,20 @@ namespace Battleship.GameController.Contracts
     public class Ship
     {
         private bool isPlaced;
+        private int health;
 
         #region Constructors and Destructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Ship"/> class.
         /// </summary>
-        public Ship()
+        public Ship(string Name, int Size)
         {
+            this.Name = Name;
+            this.Size = Size;
+            this.isPlaced = false;
             Positions = new List<Position>();
+            health = Size;
         }
 
         #endregion
@@ -77,6 +82,40 @@ namespace Battleship.GameController.Contracts
                 if (value.Equals(isPlaced)) return;
                 isPlaced = value;
             }
+        }
+
+        public (bool hit, bool destroyed) IsHit(string input)
+        {
+            var letter = (Letters)Enum.Parse(typeof(Letters), input.ToUpper().Substring(0, 1));
+            var number = int.Parse(input.Substring(1, 1));
+            var shot = new Position { Column = letter, Row = number };
+
+            if (Positions == null)
+            {
+                throw new ArgumentNullException("Positions");
+            }
+
+            if (shot == null)
+            {
+                throw new ArgumentNullException("shot");
+            }
+
+            foreach (var position in Positions)
+            {
+                bool destroyed = false;
+                if (position.Equals(shot))
+                {
+                    ///modified to decrement health when hit
+                    health--;
+                    if (health == 0)
+                    {
+                        destroyed = true;
+                    }
+                    return (true, destroyed);
+                }
+            }
+
+            return (false, false);
         }
         #endregion
     }
