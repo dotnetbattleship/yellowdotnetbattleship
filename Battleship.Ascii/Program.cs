@@ -72,7 +72,9 @@ namespace Battleship.Ascii
             Console.WriteLine(@"   \    \_/");
             Console.WriteLine(@"    """"""""");
             Console.ForegroundColor = ConsoleColor.White;
-
+            Dictionary<string, bool> playerShots = new Dictionary<string, bool>();
+            Dictionary<string, bool> enemyShots = new Dictionary<string, bool>();
+            bool gameRunning = true;
             do
             {
                 Console.WriteLine();
@@ -81,6 +83,7 @@ namespace Battleship.Ascii
                 var position = ParsePosition(Console.ReadLine());
                 var isHit = GameController.CheckIsHit(enemyFleet, position);
                 telemetryClient.TrackEvent("Player_ShootPosition", new Dictionary<string, string>() { { "Position", position.ToString() }, { "IsHit", isHit.ToString() } });
+                playerShots[position.ToString().ToLower()] = isHit;
                 if (isHit)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -108,6 +111,7 @@ namespace Battleship.Ascii
 
                 position = GetRandomPosition();
                 isHit = GameController.CheckIsHit(myFleet, position);
+                enemyShots[position.ToString().ToLower()] = isHit;
                 telemetryClient.TrackEvent("Computer_ShootPosition", new Dictionary<string, string>() { { "Position", position.ToString() }, { "IsHit", isHit.ToString() } });
                 Console.WriteLine();
 
@@ -138,8 +142,20 @@ namespace Battleship.Ascii
 
                 }
                 Console.ForegroundColor = ConsoleColor.White;
+                if (playerShots.Count(x => x.Value == true) == 17)
+                {
+                    Console.WriteLine("Congratulations ! You have sunk all the enemy ships !");
+                    telemetryClient.TrackEvent("Player_Win");
+                    gameRunning = false;
+                }
+                if (enemyShots.Count(x => x.Value == true) == 17)
+                {
+                    Console.WriteLine("Game Over ! The enemy has sunk all your ships !");
+                    telemetryClient.TrackEvent("Player_Lose");
+                    gameRunning = false;
+                }
             }
-            while (true);
+            while (gameRunning);
         }
 
         public static Position ParsePosition(string input)
@@ -192,7 +208,7 @@ namespace Battleship.Ascii
 
         private static void InitializeEnemyFleet()
         {
-            int randomInt = new Random().Next(0, 4);
+            int randomInt = 0; // new Random().Next(0, 9);
 
             enemyFleet = GameController.InitializeShips().ToList();
 
