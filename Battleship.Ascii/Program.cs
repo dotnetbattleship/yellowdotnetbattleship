@@ -19,7 +19,7 @@ namespace Battleship.Ascii
         static void Main()
         {
             telemetryClient = new ApplicationInsightsTelemetryClient();
-            telemetryClient.TrackEvent("ApplicationStarted", new Dictionary<string, string> { { "Technology", ".NET"} });
+            telemetryClient.TrackEvent("ApplicationStarted", new Dictionary<string, string> { { "Technology", ".NET" } });
 
             try
             {
@@ -51,7 +51,7 @@ namespace Battleship.Ascii
                 Console.WriteLine("A serious problem occured. The application cannot continue and will be closed.");
                 telemetryClient.TrackException(e);
                 Console.WriteLine("");
-                Console.WriteLine("Error details:");      
+                Console.WriteLine("Error details:");
                 throw new Exception("Fatal error", e);
             }
 
@@ -78,7 +78,7 @@ namespace Battleship.Ascii
                 Console.WriteLine();
                 Console.WriteLine("Player, it's your turn");
                 Console.WriteLine("Enter coordinates for your shot :");
-                var position = ParsePosition(Console.ReadLine());                
+                var position = ParsePosition(Console.ReadLine());
                 var isHit = GameController.CheckIsHit(enemyFleet, position);
                 telemetryClient.TrackEvent("Player_ShootPosition", new Dictionary<string, string>() { { "Position", position.ToString() }, { "IsHit", isHit.ToString() } });
                 if (isHit)
@@ -192,29 +192,277 @@ namespace Battleship.Ascii
 
         private static void InitializeEnemyFleet()
         {
+            int randomInt = new Random().Next(0, 4);
+
             enemyFleet = GameController.InitializeShips().ToList();
 
-            enemyFleet[0].Positions.Add(new Position { Column = Letters.B, Row = 4 });
-            enemyFleet[0].Positions.Add(new Position { Column = Letters.B, Row = 5 });
-            enemyFleet[0].Positions.Add(new Position { Column = Letters.B, Row = 6 });
-            enemyFleet[0].Positions.Add(new Position { Column = Letters.B, Row = 7 });
-            enemyFleet[0].Positions.Add(new Position { Column = Letters.B, Row = 8 });
+            if (randomInt == 0)
+            {
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.B, Row = 4 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.B, Row = 5 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.B, Row = 6 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.B, Row = 7 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.B, Row = 8 });
 
-            enemyFleet[1].Positions.Add(new Position { Column = Letters.E, Row = 6 });
-            enemyFleet[1].Positions.Add(new Position { Column = Letters.E, Row = 7 });
-            enemyFleet[1].Positions.Add(new Position { Column = Letters.E, Row = 8 });
-            enemyFleet[1].Positions.Add(new Position { Column = Letters.E, Row = 9 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.E, Row = 6 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.E, Row = 7 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.E, Row = 8 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.E, Row = 9 });
 
-            enemyFleet[2].Positions.Add(new Position { Column = Letters.A, Row = 3 });
-            enemyFleet[2].Positions.Add(new Position { Column = Letters.B, Row = 3 });
-            enemyFleet[2].Positions.Add(new Position { Column = Letters.C, Row = 3 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.A, Row = 3 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.B, Row = 3 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.C, Row = 3 });
 
-            enemyFleet[3].Positions.Add(new Position { Column = Letters.F, Row = 8 });
-            enemyFleet[3].Positions.Add(new Position { Column = Letters.G, Row = 8 });
-            enemyFleet[3].Positions.Add(new Position { Column = Letters.H, Row = 8 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.F, Row = 8 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.G, Row = 8 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.H, Row = 8 });
 
-            enemyFleet[4].Positions.Add(new Position { Column = Letters.C, Row = 5 });
-            enemyFleet[4].Positions.Add(new Position { Column = Letters.C, Row = 6 });
+                enemyFleet[4].Positions.Add(new Position { Column = Letters.C, Row = 5 });
+                enemyFleet[4].Positions.Add(new Position { Column = Letters.C, Row = 6 });
+            }
+
+            else if (randomInt == 1)
+            {
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.A, Row = 4 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.A, Row = 5 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.A, Row = 6 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.A, Row = 7 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.A, Row = 8 });
+
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.B, Row = 6 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.B, Row = 7 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.B, Row = 8 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.B, Row = 9 });
+
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.D, Row = 3 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.E, Row = 3 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.F, Row = 3 });
+
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.A, Row = 8 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.B, Row = 8 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.C, Row = 8 });
+
+                enemyFleet[4].Positions.Add(new Position { Column = Letters.H, Row = 5 });
+                enemyFleet[4].Positions.Add(new Position { Column = Letters.H, Row = 6 });
+            }
+
+            else if (randomInt == 2)
+            {
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.A, Row = 1 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.A, Row = 2 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.A, Row = 3 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.A, Row = 4 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.A, Row = 5 });
+
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.D, Row = 8 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.E, Row = 8 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.F, Row = 8 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.G, Row = 8 });
+
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.F, Row = 2 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.F, Row = 3 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.F, Row = 4 });
+
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.C, Row = 5 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.C, Row = 6 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.C, Row = 7 });
+
+                enemyFleet[4].Positions.Add(new Position { Column = Letters.H, Row = 2 });
+                enemyFleet[4].Positions.Add(new Position { Column = Letters.H, Row = 3 });
+            }
+
+            else if (randomInt == 3)
+            {
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.H, Row = 1 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.H, Row = 2 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.H, Row = 3 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.H, Row = 4 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.H, Row = 5 });
+
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.A, Row = 8 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.B, Row = 8 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.C, Row = 8 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.D, Row = 8 });
+
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.C, Row = 2 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.D, Row = 2 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.E, Row = 2 });
+
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.B, Row = 5 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.B, Row = 6 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.B, Row = 7 });
+
+                enemyFleet[4].Positions.Add(new Position { Column = Letters.F, Row = 6 });
+                enemyFleet[4].Positions.Add(new Position { Column = Letters.G, Row = 6 });
+            }
+            else if (randomInt == 4)
+            {
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.C, Row = 1 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.D, Row = 1 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.E, Row = 1 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.F, Row = 1 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.G, Row = 1 });
+
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.A, Row = 4 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.A, Row = 5 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.A, Row = 6 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.A, Row = 7 });
+
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.E, Row = 4 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.F, Row = 4 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.G, Row = 4 });
+
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.H, Row = 6 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.H, Row = 7 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.H, Row = 8 });
+
+                enemyFleet[4].Positions.Add(new Position { Column = Letters.C, Row = 8 });
+                enemyFleet[4].Positions.Add(new Position { Column = Letters.D, Row = 8 });
+            }
+            else if (randomInt == 5)
+            {
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.A, Row = 8 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.B, Row = 8 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.C, Row = 8 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.D, Row = 8 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.E, Row = 8 });
+
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.H, Row = 1 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.H, Row = 2 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.H, Row = 3 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.H, Row = 4 });
+
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.C, Row = 3 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.C, Row = 4 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.C, Row = 5 });
+
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.F, Row = 6 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.G, Row = 6 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.H, Row = 6 });
+
+                enemyFleet[4].Positions.Add(new Position { Column = Letters.A, Row = 1 });
+                enemyFleet[4].Positions.Add(new Position { Column = Letters.B, Row = 1 });
+            }
+            else if (randomInt == 6)
+            {
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.F, Row = 3 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.F, Row = 4 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.F, Row = 5 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.F, Row = 6 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.F, Row = 7 });
+
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.A, Row = 2 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.B, Row = 2 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.C, Row = 2 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.D, Row = 2 });
+
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.B, Row = 8 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.C, Row = 8 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.D, Row = 8 });
+
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.H, Row = 4 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.H, Row = 5 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.H, Row = 6 });
+
+                enemyFleet[4].Positions.Add(new Position { Column = Letters.C, Row = 5 });
+                enemyFleet[4].Positions.Add(new Position { Column = Letters.D, Row = 5 });
+            }
+            else if (randomInt == 7)
+            {
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.D, Row = 3 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.E, Row = 3 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.F, Row = 3 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.G, Row = 3 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.H, Row = 3 });
+
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.B, Row = 5 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.B, Row = 6 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.B, Row = 7 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.B, Row = 8 });
+
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.E, Row = 8 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.F, Row = 8 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.G, Row = 8 });
+
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.A, Row = 1 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.A, Row = 2 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.A, Row = 3 });
+
+                enemyFleet[4].Positions.Add(new Position { Column = Letters.H, Row = 6 });
+                enemyFleet[4].Positions.Add(new Position { Column = Letters.H, Row = 7 });
+            }
+            else if (randomInt == 8)
+            {
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.A, Row = 4 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.B, Row = 4 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.C, Row = 4 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.D, Row = 4 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.E, Row = 4 });
+
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.G, Row = 1 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.G, Row = 2 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.G, Row = 3 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.G, Row = 4 });
+
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.C, Row = 7 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.D, Row = 7 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.E, Row = 7 });
+
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.H, Row = 6 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.H, Row = 7 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.H, Row = 8 });
+
+                enemyFleet[4].Positions.Add(new Position { Column = Letters.B, Row = 1 });
+                enemyFleet[4].Positions.Add(new Position { Column = Letters.C, Row = 1 });
+            }
+            else if (randomInt == 9)
+            {
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.E, Row = 2 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.E, Row = 3 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.E, Row = 4 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.E, Row = 5 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.E, Row = 6 });
+
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.A, Row = 8 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.B, Row = 8 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.C, Row = 8 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.D, Row = 8 });
+
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.H, Row = 1 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.H, Row = 2 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.H, Row = 3 });
+
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.B, Row = 3 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.C, Row = 3 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.D, Row = 3 });
+
+                enemyFleet[4].Positions.Add(new Position { Column = Letters.G, Row = 7 });
+                enemyFleet[4].Positions.Add(new Position { Column = Letters.G, Row = 8 });
+            }
+            else if (randomInt == 10)
+            {
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.C, Row = 2 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.C, Row = 3 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.C, Row = 4 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.C, Row = 5 });
+                enemyFleet[0].Positions.Add(new Position { Column = Letters.C, Row = 6 });
+
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.E, Row = 8 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.F, Row = 8 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.G, Row = 8 });
+                enemyFleet[1].Positions.Add(new Position { Column = Letters.H, Row = 8 });
+
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.A, Row = 6 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.A, Row = 7 });
+                enemyFleet[2].Positions.Add(new Position { Column = Letters.A, Row = 8 });
+
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.E, Row = 3 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.F, Row = 3 });
+                enemyFleet[3].Positions.Add(new Position { Column = Letters.G, Row = 3 });
+
+                enemyFleet[4].Positions.Add(new Position { Column = Letters.F, Row = 1 });
+                enemyFleet[4].Positions.Add(new Position { Column = Letters.G, Row = 1 });
+            }
         }
     }
 }
