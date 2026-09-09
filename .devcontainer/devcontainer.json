@@ -1,4 +1,4 @@
-// For format details, see https://aka.ms/devcontainer.json
+// For format details, see https://aka.ms/devcontainer.json   ~
 {
 	"name": "C# (.NET)",
 	"image": "mcr.microsoft.com/devcontainers/dotnet:9.0-bookworm",
